@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "hackathon_cat_tree.sln"
+    "dotnet.defaultSolution": "CatGame.sln"
 }
