@@ -8,8 +8,6 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     private PlayerInput _playerInput;
-    private CharacterController _controller;
-    private Vector3 _moveDirection;
     private Vector3 _move;
     private float _maxForce = 1.0f;
 
@@ -22,24 +20,16 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody _playerRigidBody;
     [SerializeField] float _gravity;
-    [SerializeField] float _fallGravityMultiplier;
     [SerializeField] float _jumpVelocity;
     [SerializeField] float _speed;
     private bool _isJumpButtonPressed;
     private bool _isJumping = false;
-    private float _fallGravity;
-    private float _gravityScale;
 
 
-    // Start is called before the first frame update
     void Awake()
     {
-        _controller = null;
         _playerInput = new PlayerInput();
-        TryGetComponent<CharacterController>(out _controller);
         TryGetComponent<Rigidbody>(out _playerRigidBody);
-        _fallGravity = _gravity * _fallGravityMultiplier;
-        _gravityScale = _gravity;
     }
 
     private void OnEnable()
@@ -47,7 +37,6 @@ public class PlayerMovement : MonoBehaviour
         _playerInput.Enable();
         _playerInput.Movement.Move.started += onMovementInput;
         _playerInput.Movement.Move.canceled += onMovementInput;
-        //_playerInput.Movement.Jump.started += onJump;
         _playerInput.Movement.Jump.started += ctx=>{_isJumpButtonPressed = true;};
         _playerInput.Movement.Jump.canceled += ctx=> {_isJumpButtonPressed = false;}; 
     }
@@ -63,46 +52,36 @@ public class PlayerMovement : MonoBehaviour
 
     private void JumpHandler()
     {
-        // if(_moveDirection.y > 0.0f && _isJumping)
-        // {
-        //     Debug.Log("Rising");
-        //     if(!_isJumpButtonPressed)
-        //     {
-        //         _gravityScale = _fallGravity;
-        //     }
-        // }
-        // else if(_moveDirection.y < 0.0f && _isJumping){
-        //     Debug.Log("Descending");
-        //     _gravityScale = _fallGravity;
-        // }
-
-        // if(!_isJumping && _isJumpButtonPressed && _controller.isGrounded)
-        // {
-        //     _isJumping = true;
-        //     _moveDirection.y = _jumpVelocity;
-        // }
-        // else if(!_isJumpButtonPressed && _isJumping && _controller.isGrounded)
-        // {
-        //     _isJumping = false;
-        //     _gravityScale = _gravity;
-        // }
-
-        if(_isJumpButtonPressed && _isGrounded)
+        if(!_isJumping && _isJumpButtonPressed && _isGrounded)
         {
+            _isJumping = true;
             _playerRigidBody.AddForce(Vector3.up * _jumpVelocity, ForceMode.Impulse);
+        }
+        else if(!_isJumpButtonPressed && _isJumping && _isGrounded)
+        {
+            _isJumping = false;
+        }
+        if(_playerRigidBody.velocity.y > 0 && _isJumping)
+        {
+            Debug.Log("Up");
+            if(!_isJumpButtonPressed)
+            {
+                _playerRigidBody.AddForce(Vector3.down * _gravity);
+            }
+        }
+        else if(_playerRigidBody.velocity.y < 0){
+            _playerRigidBody.AddForce(Vector3.down * _gravity);
+            Debug.Log("Down " + _playerRigidBody.velocity);
         }
 
     }
     private void onMovementInput(InputAction.CallbackContext context)
     {
         _move.x = context.ReadValue<Vector2>().x;
-       //_moveDirection.x = context.ReadValue<Vector2>().x * _speed;
     }
     // Update is called once per frame
     void FixedUpdate()
     {
-        //_moveDirection.y += Physics.gravity.y * _gravityScale * Time.deltaTime;
-        //_controller.Move(_moveDirection * Time.deltaTime);
         Move();
         JumpHandler();
     }

@@ -12,7 +12,7 @@ public class GroundCheck : MonoBehaviour
     // Start is called before the first frame update
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collided");
+        //Debug.Log("Collided");
         if (other.gameObject.layer == 6)
         {
             _player.IsGrounded = true;
