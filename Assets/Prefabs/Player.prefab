@@ -80,8 +80,8 @@ GameObject:
   - component: {fileID: 7532135234123480900}
   - component: {fileID: 969800532526824183}
   - component: {fileID: 6973092108339686672}
-  - component: {fileID: 4786315486738769701}
-  - component: {fileID: -5831169840411708155}
+  - component: {fileID: 2748322156936119889}
+  - component: {fileID: 4335568876272457080}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -199,7 +199,7 @@ MonoBehaviour:
   m_DefaultActionMap: Movement
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!212 &4786315486738769701
+--- !u!212 &2748322156936119889
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -251,7 +251,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &-5831169840411708155
+--- !u!95 &4335568876272457080
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -261,7 +261,7 @@ Animator:
   m_GameObject: {fileID: 9081739635916284816}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9fd4b267b5444d348824158064c32778, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
