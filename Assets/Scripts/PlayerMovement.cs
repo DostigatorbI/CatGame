@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private PlayerInput _playerInput;
     private Vector3 _move;
+    private SpriteRenderer _spriteRenderer;
     private float _maxForce = 1.0f;
 
     [SerializeField]private bool _isGrounded;
@@ -30,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _playerInput = new PlayerInput();
         TryGetComponent<Rigidbody>(out _playerRigidBody);
+        TryGetComponent<SpriteRenderer>(out _spriteRenderer);
     }
 
     private void OnEnable()
@@ -78,6 +80,14 @@ public class PlayerMovement : MonoBehaviour
     private void onMovementInput(InputAction.CallbackContext context)
     {
         _move.x = context.ReadValue<Vector2>().x;
+        if(_move.x > 0.0)
+        {
+            _spriteRenderer.flipX = false;
+        }
+        else if(_move.x < 0.0)
+        {
+            _spriteRenderer.flipX = true;
+        }
     }
     // Update is called once per frame
     void FixedUpdate()
