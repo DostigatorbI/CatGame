@@ -58,7 +58,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Cat
+  m_Name: cat
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:
@@ -137,10 +137,10 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 4168949812522129596}
-    m_Position: {x: 147.5, y: 286.875, z: 0}
+    m_Position: {x: 420, y: 280, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2525469911607359000}
-    m_Position: {x: 420, y: 300, z: 0}
+    m_Position: {x: 160, y: 260, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6312600682052698058}
     m_Position: {x: 700, y: 290, z: 0}
