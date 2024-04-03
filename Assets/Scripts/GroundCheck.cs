@@ -16,7 +16,7 @@ public class GroundCheck : MonoBehaviour
         if (other.gameObject.layer == 6)
         {
             _player.IsGrounded = true;
-            Debug.Log("Set " + _player.IsGrounded);
+            //Debug.Log("Set " + _player.IsGrounded);
         }
     }
 
@@ -25,7 +25,7 @@ public class GroundCheck : MonoBehaviour
         if (other.gameObject.layer == 6)
         {
             _player.IsGrounded = false;
-            Debug.Log("Set " + _player.IsGrounded);
+            //Debug.Log("Set " + _player.IsGrounded);
         }
     }
 }

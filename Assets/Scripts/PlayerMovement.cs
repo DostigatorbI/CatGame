@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public delegate void MoveDirection(float direction);
+    public static event MoveDirection OnChangeMoveDirection;
     private PlayerInput _playerInput;
     private Vector3 _move;
     private SpriteRenderer _spriteRenderer;
@@ -65,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if(_playerRigidBody.velocity.y > 0 && _isJumping)
         {
-            Debug.Log("Up");
+            //Debug.Log("Up");
             if(!_isJumpButtonPressed)
             {
                 _playerRigidBody.AddForce(Vector3.down * _gravity);
@@ -73,13 +75,14 @@ public class PlayerMovement : MonoBehaviour
         }
         else if(_playerRigidBody.velocity.y < 0){
             _playerRigidBody.AddForce(Vector3.down * _gravity);
-            Debug.Log("Down " + _playerRigidBody.velocity);
+           // Debug.Log("Down " + _playerRigidBody.velocity);
         }
 
     }
     private void onMovementInput(InputAction.CallbackContext context)
     {
         _move.x = context.ReadValue<Vector2>().x;
+        OnChangeMoveDirection?.Invoke(_move.x);
         if(_move.x > 0.0)
         {
             _spriteRenderer.flipX = false;
@@ -104,6 +107,7 @@ public class PlayerMovement : MonoBehaviour
         targetVelocity = transform.TransformDirection(targetVelocity);
         Vector3 VelocityChange = targetVelocity - currentVelocity;
         VelocityChange = new Vector3(VelocityChange.x, 0, VelocityChange.z);
+       // Debug.Log(VelocityChange);
         Vector3.ClampMagnitude(VelocityChange, _maxForce);
         _playerRigidBody.AddForce(VelocityChange, ForceMode.VelocityChange);
     }
